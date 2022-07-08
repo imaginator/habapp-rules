@@ -1,0 +1,45 @@
+directories:
+  logging: /var/log/habapp   # Folder where the logs will be written to
+  rules:   /etc/habapp/rules    # Folder from which the rule files will be loaded
+  param:   params   # Folder from which the parameter files will be loaded
+  config:  /etc/habapp/config  # Folder from which configuration files (e.g. for textual thing configuration) will be loaded
+  lib:     lib        # Folder where additional libraries can be placed
+location:
+  latitude: 0.0
+  longitude: 0.0
+  elevation: 0.0
+mqtt:
+  connection:
+    client_id: HABApp
+    host: ''   # Connect to this host. Empty string ("") disables the connection.
+    port: 1883
+    user: ''
+    password: ''
+    tls:
+      enabled: true    # Enable TLS for the connection
+      ca cert: .       # Path to a CA certificate that will be treated as trusted
+      insecure: false  # Validate server hostname in server certificate
+  subscribe:
+    qos: 0   # Default QoS for subscribing
+    topics:
+    - - '#'
+      - 
+  publish:
+    qos: 0         # Default QoS when publishing values
+    retain: false  # Default retain flag when publishing values
+  general:
+    listen_only: false   # If True HABApp does not publish any value to the broker
+openhab:
+  connection:
+    url: 'http://10.7.11.1:8080'   # Connect to this url. Empty string ("") disables the connection.
+    user: 'habapp'
+    password: 'habapp'
+    verify_ssl: false             # Check certificates when using https
+  general:
+    listen_only: false      # If True HABApp does not change anything on the openHAB instance.
+    min_start_level: 60
+    wait_for_openhab: true  # If True HABApp will wait for a successful openHAB connection before loading any rules on startup
+  ping:
+    enabled: true      # If enabled the configured item will show how long it takes to send an update from HABApp and get the updated value back from openHAB in milliseconds
+    item: HABApp_Ping  # Name of the Numberitem
+    interval: 10       # Seconds between two pings
